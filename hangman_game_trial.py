@@ -1,36 +1,31 @@
-print('Welcome to the world of Hangman')
-p1=str(input("Enter Player name 1: "))
-p2=str(input("Enter Player name 2: "))
-guesser=str(input("Enter the player who will guess: "))
-no_of_chances=None
-if guesser in list((p1,p2)):
-    no_of_chances=int(input('Enter the no of chances given to the guesser:'))
-else:
-    print('Sorry!! you entered a wrong name kindly enter correct guesser')
-    guesser=str(input("Enter again the player who will guess: "))
-word=str(input('Enter the word which needs to be guessed'))
-l=list(word)
-temp=['_']*len(l)
+import time,random
+with open('C:\\Users\\crockroax\\Desktop\\Projects\\Hangman_game using Python\\data _set for the word.txt','rt') as f:
+    x=f.readlines()
+word=random.choice(x)[:-1]
+print('Welcome to the Hangman Game')
+p=str(input("Enter Player name : "))
+no_of_chances=random.randrange(1,10)
+word_list=list(word)
+temp=['_']*len(word_list)
+print('You have got ',no_of_chances,' chances to guess the word with current status ',' '.join(temp))
 while no_of_chances>0:
     print('....................................................................................')
     print('....................................................................................')
-    x=str(input('Guess the word with chances remaning '+str(no_of_chances)+': '))
-    if x in l:
-        for i in range(len(l)):
-            if l[i]==x:
-                temp[i]=x
-        print('original word: '+word)
-        print('current status: '+str(''.join(temp)))
+    x=str(input('Guess the letter with chances remaning '+str(no_of_chances)+': '))
+    if x.lower() in word_list or x.upper() in word_list :
+        for i in range(len(word_list)):
+            if word_list[i]==x.upper() or word_list[i]==x.lower():
+                temp[i]=word_list[i]
+        print('current status: ',' '.join(temp))
     else:
-        print('original word: '+word)
-        print('current status: '+str(''.join(temp)))
+        print('current status: ',' '.join(temp))
         no_of_chances-=1
         continue
     if ''.join(temp)==word:
-        print('hence matched')
+        print('YOU WON!!',p,'The word was',word)
         break
 else:
-    print('LOST THE GAME!!!')
+    print('YOU LOST THE GAME!!!',p,'The word was',word)
 
 
 
